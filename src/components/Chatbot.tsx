@@ -194,7 +194,7 @@ const Chatbot = () => {
           </div>
 
           {/* Messages area */}
-          <div className="flex-1 overflow-y-auto p-3 space-y-3">
+          <div className="flex-1 overflow-y-auto p-3 space-y-3 no-scrollbar">
             {messages.length === 0 && (
               <div className="flex flex-col items-center justify-center h-full text-center px-4 gap-4">
                 <div
@@ -238,7 +238,7 @@ const Chatbot = () => {
                   }
                 >
                   {msg.role === "assistant" ? (
-                    <div className="prose prose-sm max-w-none dark:prose-invert [&_p]:m-0 [&_p]:mb-1.5 [&_ul]:mt-1 [&_ol]:mt-1 [&_h2]:text-base [&_h2]:mt-0 [&_h2]:mb-1 [&_table]:w-full [&_table]:border-collapse [&_table]:my-2 [&_th]:border [&_th]:border-white/20 [&_th]:p-2 [&_th]:bg-white/5 [&_td]:border [&_td]:border-white/10 [&_td]:p-2">
+                   <div className="prose prose-sm max-w-none dark:prose-invert [&_p]:m-0 [&_p]:mb-1.5 [&_ul]:mt-1 [&_ol]:mt-1 [&_h2]:text-base [&_h2]:mt-0 [&_h2]:mb-1 [&_table]:w-full [&_table]:border-collapse [&_table]:my-2 [&_th]:border [&_th]:border-white/20 [&_th]:p-2 [&_th]:bg-white/5 [&_td]:border [&_td]:border-white/10 [&_td]:p-2 overflow-x-auto no-scrollbar">
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
                     </div>
                   ) : (
@@ -288,7 +288,7 @@ const Chatbot = () => {
 
           {/* Quick suggestions after messages */}
           {messages.length > 0 && messages.length < 6 && !loading && (
-            <div className="px-3 pb-1 flex gap-1 overflow-x-auto shrink-0">
+            <div className="px-3 pb-1 flex gap-1 overflow-x-auto shrink-0 no-scrollbar">
               {["Best time to visit 📅", "Budget tips 💰", "Emergency numbers 🚨", "Telugu లో చెప్పు"].map((s) => (
                 <button
                   key={s}
