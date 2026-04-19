@@ -239,7 +239,9 @@ const Chatbot = () => {
                 >
                   {msg.role === "assistant" ? (
                    <div className="prose prose-sm max-w-none dark:prose-invert [&_p]:m-0 [&_p]:mb-1.5 [&_ul]:mt-1 [&_ol]:mt-1 [&_h2]:text-base [&_h2]:mt-0 [&_h2]:mb-1 [&_table]:w-full [&_table]:border-collapse [&_table]:my-2 [&_th]:border [&_th]:border-white/20 [&_th]:p-2 [&_th]:bg-white/5 [&_td]:border [&_td]:border-white/10 [&_td]:p-2 overflow-x-auto no-scrollbar">
-                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {msg.content.replace(/<br\s*\/?>/gi, "\n")}
+                      </ReactMarkdown>
                     </div>
                   ) : (
                     msg.content
