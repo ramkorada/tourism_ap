@@ -9,8 +9,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { apiFetch } from "@/lib/apiClient";
 import { useToast } from "@/hooks/use-toast";
 import ReviewSection from "@/components/ReviewSection";
-import Navbar from "@/components/Navbar";
 import WeatherWidget from "@/components/WeatherWidget";
+import { GlowCard } from "@/components/GlowCard";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 
 const typeIcons: Record<string, any> = {
@@ -100,7 +100,7 @@ const DestinationDetail = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#07071a] text-white">
       <Navbar />
 
       {/* Hero Image Carousel */}
@@ -165,159 +165,192 @@ const DestinationDetail = () => {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-12 relative">
+        {/* Decorative background glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-primary/5 blur-[120px] pointer-events-none rounded-full" />
+
         {activeTab === "overview" && (
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-8 relative z-10">
             <div className="lg:col-span-2 space-y-6">
-              <div className="bg-card border border-border rounded-xl p-6">
-                <h2 className="font-display text-2xl font-bold text-foreground mb-3">About {dest.name}</h2>
-                <p className="text-muted-foreground leading-relaxed">{dest.description}</p>
-              </div>
-              <div className="bg-card border border-border rounded-xl p-6">
-                <h2 className="font-display text-2xl font-bold text-foreground mb-3">History</h2>
-                <p className="text-muted-foreground leading-relaxed">{detail.history}</p>
-              </div>
-              <div className="bg-card border border-border rounded-xl p-6">
-                <h2 className="font-display text-2xl font-bold text-foreground mb-3">Culture & Traditions</h2>
-                <p className="text-muted-foreground leading-relaxed">{detail.culture}</p>
-              </div>
+              <GlowCard className="bg-white/4 border-white/10 rounded-2xl p-6 shadow-2xl">
+                <h2 className="font-display text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">
+                  About {dest.name}
+                </h2>
+                <p className="text-white/70 leading-relaxed leading-7">{dest.description}</p>
+              </GlowCard>
+
+              <GlowCard className="bg-white/4 border-white/10 rounded-2xl p-6 shadow-2xl">
+                <h2 className="font-display text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">
+                  History
+                </h2>
+                <p className="text-white/70 leading-relaxed leading-7">{detail.history}</p>
+              </GlowCard>
+
+              <GlowCard className="bg-white/4 border-white/10 rounded-2xl p-6 shadow-2xl">
+                <h2 className="font-display text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">
+                  Culture & Traditions
+                </h2>
+                <p className="text-white/70 leading-relaxed leading-7">{detail.culture}</p>
+              </GlowCard>
             </div>
-            <div className="space-y-4">
-              <div className="bg-card border border-border rounded-xl p-5">
-                <h3 className="font-display text-lg font-bold text-foreground mb-3">Quick Info</h3>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-center gap-2"><Calendar className="h-4 w-4 text-primary" /><span className="text-muted-foreground">Best time: {detail.travelInfo.bestTimeToVisit}</span></div>
-                  <div className="flex items-center gap-2"><Clock className="h-4 w-4 text-primary" /><span className="text-muted-foreground">Duration: {detail.travelInfo.idealDuration}</span></div>
-                  <div className="flex items-center gap-2"><IndianRupee className="h-4 w-4 text-primary" /><span className="text-muted-foreground">Budget: {detail.travelInfo.estimatedDailyCost.budget}/day</span></div>
+
+            <div className="space-y-6">
+              <GlowCard className="bg-white/4 border-white/10 rounded-2xl p-6 shadow-2xl">
+                <h3 className="font-display text-lg font-bold mb-4 text-white">Quick Info</h3>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5">
+                    <Calendar className="h-5 w-5 text-primary" />
+                    <div className="flex flex-col">
+                      <span className="text-[10px] uppercase tracking-wider text-white/40">Best time to visit</span>
+                      <span className="text-sm text-white/80">{detail.travelInfo.bestTimeToVisit}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5">
+                    <Clock className="h-5 w-5 text-primary" />
+                    <div className="flex flex-col">
+                      <span className="text-[10px] uppercase tracking-wider text-white/40">Ideal Duration</span>
+                      <span className="text-sm text-white/80">{detail.travelInfo.idealDuration}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5">
+                    <IndianRupee className="h-5 w-5 text-primary" />
+                    <div className="flex flex-col">
+                      <span className="text-[10px] uppercase tracking-wider text-white/40">Daily Budget</span>
+                      <span className="text-sm text-white/80">{detail.travelInfo.estimatedDailyCost.budget} / day</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="bg-card border border-border rounded-xl p-5">
-                <h3 className="font-display text-lg font-bold text-foreground mb-3 flex items-center gap-2"><Users className="h-5 w-5 text-primary" /> Best For</h3>
+              </GlowCard>
+
+              <GlowCard className="bg-white/4 border-white/10 rounded-2xl p-6 shadow-2xl">
+                <h3 className="font-display text-lg font-bold mb-4 flex items-center gap-2 text-white">
+                  <Users className="h-5 w-5 text-primary" /> Best For
+                </h3>
                 <div className="flex flex-wrap gap-2">
                   {detail.guideInfo.bestFor.map((tag) => (
-                    <span key={tag} className="px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">{tag}</span>
+                    <span key={tag} className="px-3 py-1.5 bg-primary/15 text-primary border border-primary/20 text-xs font-semibold rounded-full uppercase tracking-tighter">
+                      {tag}
+                    </span>
                   ))}
                 </div>
-              </div>
-              <a href={dest.mapUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-primary text-primary-foreground px-4 py-3 rounded-xl font-semibold hover:bg-primary/90 transition-colors w-full">
-                <Navigation className="h-4 w-4" /> View on Google Maps
-              </a>
-              {userLocation && (
-                <a
-                  href={`https://www.google.com/maps/dir/?api=1&origin=${userLocation.lat},${userLocation.lng}&destination=${encodeURIComponent(dest.name + " Andhra Pradesh")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 bg-secondary text-secondary-foreground px-4 py-3 rounded-xl font-semibold hover:bg-secondary/90 transition-colors w-full"
-                >
-                  <Car className="h-4 w-4" /> Get Directions from My Location
+              </GlowCard>
+
+              <div className="space-y-3">
+                <a href={dest.mapUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-primary text-white px-5 py-4 rounded-2xl font-bold hover:brightness-110 transition-all w-full shadow-lg shadow-primary/20">
+                  <Navigation className="h-4 w-4" /> View Map
                 </a>
-              )}
-              <WeatherWidget destinationId={dest.id} />
+                {userLocation && (
+                  <a
+                    href={`https://www.google.com/maps/dir/?api=1&origin=${userLocation.lat},${userLocation.lng}&destination=${encodeURIComponent(dest.name + " Andhra Pradesh")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 border border-white/10 bg-white/5 text-white px-5 py-4 rounded-2xl font-bold hover:bg-white/10 transition-all w-full"
+                  >
+                    <Car className="h-4 w-4" /> Get Directions
+                  </a>
+                )}
+              </div>
+
+              <GlowCard className="bg-white/4 border-white/10 rounded-2xl p-1 overflow-hidden">
+                <WeatherWidget destinationId={dest.id} />
+              </GlowCard>
             </div>
           </div>
-        )}
-
-        {activeTab === "guide" && (
-          <div className="grid lg:grid-cols-2 gap-6">
+               {activeTab === "guide" && (
+          <div className="grid lg:grid-cols-2 gap-6 relative z-10">
             {/* Must Visit */}
-            <div className="bg-card border border-border rounded-xl p-6">
-              <h2 className="font-display text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+            <GlowCard className="bg-white/4 border-white/10 rounded-2xl p-6 shadow-2xl">
+              <h2 className="font-display text-xl font-bold text-white mb-6 flex items-center gap-2">
                 <Star className="h-5 w-5 text-accent fill-accent" /> Must-Visit Spots
               </h2>
-              <ul className="space-y-2">
+              <ul className="space-y-4">
                 {detail.guideInfo.mustVisitSpots.map((spot, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <CheckCircle className="h-4 w-4 text-eco mt-0.5 flex-shrink-0" />
-                    {spot}
+                  <li key={i} className="flex items-start gap-3 text-white/70">
+                    <CheckCircle className="h-5 w-5 text-eco mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">{spot}</span>
                   </li>
                 ))}
               </ul>
-            </div>
+            </GlowCard>
 
             {/* Local Tips */}
-            <div className="bg-card border border-border rounded-xl p-6">
-              <h2 className="font-display text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+            <GlowCard className="bg-white/4 border-white/10 rounded-2xl p-6 shadow-2xl">
+              <h2 className="font-display text-xl font-bold text-white mb-6 flex items-center gap-2">
                 <MapPin className="h-5 w-5 text-primary" /> Local Tips
               </h2>
-              <ul className="space-y-2">
+              <ul className="space-y-4">
                 {detail.guideInfo.localTips.map((tip, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <span className="text-primary font-bold flex-shrink-0">💡</span>
+                  <li key={i} className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/5 text-sm text-white/70">
+                    <span className="text-primary font-bold flex-shrink-0 text-lg">💡</span>
                     {tip}
                   </li>
                 ))}
               </ul>
-            </div>
+            </GlowCard>
 
             {/* Safety Tips */}
-            <div className="bg-card border border-border rounded-xl p-6">
-              <h2 className="font-display text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-                <AlertTriangle className="h-5 w-5 text-accent" /> Safety Tips
+            <GlowCard className="bg-white/4 border-white/10 rounded-2xl p-6 shadow-2xl">
+              <h2 className="font-display text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <AlertTriangle className="h-5 w-5 text-accent" /> Safety First
               </h2>
-              <ul className="space-y-2">
+              <ul className="space-y-4">
                 {detail.guideInfo.safetyTips.map((tip, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <AlertTriangle className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                  <li key={i} className="flex items-start gap-4 p-4 rounded-xl bg-red-400/5 border border-red-400/10 text-sm text-white/70">
+                    <AlertTriangle className="h-5 w-5 text-red-400 mt-0.5 flex-shrink-0" />
                     {tip}
                   </li>
                 ))}
               </ul>
-            </div>
+            </GlowCard>
 
             {/* What to Carry */}
-            <div className="bg-card border border-border rounded-xl p-6">
-              <h2 className="font-display text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+            <GlowCard className="bg-white/4 border-white/10 rounded-2xl p-6 shadow-2xl">
+              <h2 className="font-display text-xl font-bold text-white mb-6 flex items-center gap-2">
                 <Backpack className="h-5 w-5 text-primary" /> What to Carry
               </h2>
-              <div className="flex flex-wrap gap-2">
+              <div className="grid grid-cols-2 gap-3">
                 {detail.guideInfo.whatToCarry.map((item, i) => (
-                  <span key={i} className="px-3 py-1.5 bg-muted text-foreground text-sm rounded-lg">🎒 {item}</span>
+                  <div key={i} className="flex items-center gap-2 p-3 bg-white/5 border border-white/5 rounded-xl text-xs text-white/80">
+                    <CheckCircle className="h-4 w-4 text-primary" /> {item}
+                  </div>
                 ))}
               </div>
-            </div>
+            </GlowCard>
 
             {/* Travel Guide Contacts */}
-            <div className="bg-card border border-border rounded-xl p-6 lg:col-span-2">
-              <h2 className="font-display text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-                <Phone className="h-5 w-5 text-primary" /> Travel Guide & Helpline Numbers
+            <GlowCard className="bg-white/4 border-white/10 rounded-2xl p-6 lg:col-span-2 shadow-2xl" id="guide-contacts">
+              <h2 className="font-display text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <Phone className="h-5 w-5 text-primary" /> Local Contacts & Helplines
               </h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {detail.guideContacts.map((contact, i) => {
                   const typeColors: Record<string, string> = {
-                    helpline: "bg-eco/10 text-eco",
-                    tour_operator: "bg-coastal/10 text-coastal",
-                    local_guide: "bg-cultural/10 text-cultural",
-                    emergency: "bg-destructive/10 text-destructive",
-                    temple: "bg-accent/10 text-accent",
-                    tourism_office: "bg-primary/10 text-primary",
-                  };
-                  const typeLabelsMap: Record<string, string> = {
-                    helpline: "Helpline",
-                    tour_operator: "Tour Operator",
-                    local_guide: "Local Guide",
-                    emergency: "Emergency",
-                    temple: "Temple",
-                    tourism_office: "Tourism Office",
+                    helpline: "text-eco bg-eco/20 border-eco/30",
+                    tour_operator: "text-coastal bg-coastal/20 border-coastal/30",
+                    local_guide: "text-cultural bg-cultural/20 border-cultural/30",
+                    emergency: "text-destructive bg-destructive/20 border-destructive/30",
+                    temple: "text-accent bg-accent/20 border-accent/30",
+                    tourism_office: "text-primary bg-primary/20 border-primary/30",
                   };
                   return (
-                    <div key={i} className="flex flex-col gap-2 p-3 bg-muted/50 rounded-lg">
+                    <div key={i} className="flex flex-col gap-3 p-4 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/8 transition-colors">
                       <div className="flex items-start justify-between">
                         <div>
-                          <p className="font-semibold text-foreground text-sm">{contact.name}</p>
-                          <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${typeColors[contact.type] || "bg-muted text-muted-foreground"}`}>
-                            {typeLabelsMap[contact.type] || contact.type}
+                          <p className="font-bold text-white text-sm">{contact.name}</p>
+                          <span className={`text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-full mt-1 inline-block border font-bold ${typeColors[contact.type] || "bg-white/10 text-white/50 border-white/10"}`}>
+                            {contact.type.replace("_", " ")}
                           </span>
                         </div>
-                        {contact.type === "emergency" && <Shield className="h-4 w-4 text-destructive flex-shrink-0" />}
+                        {contact.type === "emergency" && <Shield className="h-4 w-4 text-red-400" />}
                       </div>
-                      <p className="text-xs text-muted-foreground">{contact.description}</p>
-                      <div className="flex items-center gap-2 flex-wrap mt-auto">
-                        <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="inline-flex items-center gap-1 text-xs text-primary font-semibold hover:underline">
+                      <p className="text-xs text-white/50 leading-relaxed italic">"{contact.description}"</p>
+                      <div className="flex flex-col gap-2 pt-2 border-t border-white/5">
+                        <a href={`tel:${contact.phone}`} className="flex items-center gap-2 text-primary font-bold text-sm hover:underline">
                           <Phone className="h-3 w-3" /> {contact.phone}
                         </a>
                         {contact.website && (
-                          <a href={contact.website} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-coastal font-semibold hover:underline">
-                            <Globe className="h-3 w-3" /> Website
+                          <a href={contact.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/60 text-xs hover:text-primary transition-colors">
+                            <Globe className="h-3 w-3" /> Visit Website
                           </a>
                         )}
                       </div>
@@ -325,118 +358,125 @@ const DestinationDetail = () => {
                   );
                 })}
               </div>
-            </div>
+            </GlowCard>
           </div>
         )}
 
+        )}
+
         {activeTab === "nearby" && (
-          <div className="space-y-8">
+          <div className="space-y-12 relative z-10">
             {nearbyGroups.map(([type, places]) => {
               const Icon = typeIcons[type] || Landmark;
               return (
                 <div key={type}>
-                  <h2 className="font-display text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-                    <Icon className="h-5 w-5 text-primary" /> {typeLabels[type] || type}
+                  <h2 className="font-display text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <Icon className="h-7 w-7 text-primary" /> {typeLabels[type] || type}
                   </h2>
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {places.map((place, i) => (
-                      <div key={i} className="bg-card border border-border rounded-xl p-4 card-hover">
-                        <h3 className="font-semibold text-foreground mb-1">{place.name}</h3>
-                        <div className="space-y-1 text-sm text-muted-foreground">
-                          <p>📍 {place.distance} away</p>
-                          <p>💰 {place.priceRange}</p>
-                          <div className="flex items-center gap-1">
-                            <Star className="h-3.5 w-3.5 text-accent fill-accent" />
+                      <GlowCard key={i} className="bg-white/4 border-white/10 rounded-2xl p-5 shadow-2xl">
+                        <h3 className="font-bold text-white text-lg mb-2">{place.name}</h3>
+                        <div className="space-y-2 text-sm text-white/60">
+                          <p className="flex items-center gap-2">📍 {place.distance} away</p>
+                          <p className="flex items-center gap-2">💰 {place.priceRange}</p>
+                          <div className="flex items-center gap-1 text-accent font-bold">
+                            <Star className="h-4 w-4 fill-accent" />
                             <span>{place.rating}</span>
                           </div>
                         </div>
-                        <div className="flex items-center gap-2 mt-3 flex-wrap">
+                        <div className="flex items-center justify-between mt-6 pt-4 border-t border-white/5">
                           {place.bookingUrl && (
-                            <a href={place.bookingUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-primary font-semibold hover:underline">
-                              Book Now <ExternalLink className="h-3 w-3" />
+                            <a href={place.bookingUrl} target="_blank" rel="noopener noreferrer" className="text-xs bg-primary/10 text-primary px-3 py-1.5 rounded-full font-bold hover:bg-primary/20 transition-colors">
+                              Book Now
                             </a>
                           )}
                           {place.mapUrl && (
-                            <a href={place.mapUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-eco font-semibold hover:underline">
-                              <Map className="h-3 w-3" /> View on Map
+                            <a href={place.mapUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-white/40 hover:text-white transition-colors">
+                              <Map className="h-4 w-4 inline mr-1" /> Map
                             </a>
                           )}
                         </div>
-                      </div>
+                      </GlowCard>
                     ))}
                   </div>
                 </div>
-              );
-            })}
-          </div>
+            </div>
         )}
 
         {activeTab === "travel" && (
-          <div className="grid lg:grid-cols-2 gap-6">
-            <div className="bg-card border border-border rounded-xl p-6">
-              <h2 className="font-display text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+          <div className="grid lg:grid-cols-2 gap-8 relative z-10">
+            <GlowCard className="bg-white/4 border-white/10 rounded-2xl p-6 shadow-2xl">
+              <h2 className="font-display text-xl font-bold text-white mb-6 flex items-center gap-2">
                 <Navigation className="h-5 w-5 text-primary" /> How to Get There
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {[
                   { city: "Hyderabad", info: detail.travelInfo.fromHyderabad },
                   { city: "Visakhapatnam", info: detail.travelInfo.fromVisakhapatnam },
                   { city: "Vijayawada", info: detail.travelInfo.fromVijayawada },
                 ].map(({ city, info }) => (
-                  <div key={city} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                    <div>
-                      <p className="font-semibold text-foreground text-sm">From {city}</p>
-                      <p className="text-xs text-muted-foreground">{info.mode}</p>
+                  <div key={city} className="flex items-center justify-between p-4 bg-white/5 border border-white/5 rounded-2xl">
+                    <div className="flex flex-col gap-0.5">
+                      <p className="font-bold text-white text-sm">From {city}</p>
+                      <p className="text-[10px] text-primary font-bold uppercase tracking-widest">{info.mode}</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold text-foreground text-sm">{info.distance}</p>
-                      <p className="text-xs text-muted-foreground">{info.time}</p>
+                      <p className="font-bold text-white text-sm">{info.distance}</p>
+                      <p className="text-[10px] text-white/40 uppercase tracking-widest">{info.time}</p>
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
+            </GlowCard>
 
-            <div className="bg-card border border-border rounded-xl p-6">
-              <h2 className="font-display text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+            <GlowCard className="bg-white/4 border-white/10 rounded-2xl p-6 shadow-2xl">
+              <h2 className="font-display text-xl font-bold text-white mb-6 flex items-center gap-2">
                 <IndianRupee className="h-5 w-5 text-primary" /> Estimated Daily Cost
               </h2>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {[
-                  { label: "Budget", range: detail.travelInfo.estimatedDailyCost.budget, color: "bg-eco" },
-                  { label: "Mid-Range", range: detail.travelInfo.estimatedDailyCost.mid, color: "bg-coastal" },
-                  { label: "Luxury", range: detail.travelInfo.estimatedDailyCost.luxury, color: "bg-cultural" },
-                ].map(({ label, range, color }) => (
-                  <div key={label} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                    <div className="flex items-center gap-2">
-                      <div className={`w-3 h-3 rounded-full ${color}`} />
-                      <span className="font-medium text-foreground text-sm">{label}</span>
+                  { label: "Budget Explorer", range: detail.travelInfo.estimatedDailyCost.budget, color: "bg-eco", desc: "Basic dorms & street food" },
+                  { label: "Comfort Traveler", range: detail.travelInfo.estimatedDailyCost.mid, color: "bg-coastal", desc: "AC rooms & local restaurants" },
+                  { label: "Luxury Escapist", range: detail.travelInfo.estimatedDailyCost.luxury, color: "bg-cultural", desc: "Top resorts & private tours" },
+                ].map(({ label, range, color, desc }) => (
+                  <div key={label} className="flex items-center justify-between p-4 bg-white/5 border border-white/5 rounded-2xl">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-2 h-10 rounded-full ${color}`} />
+                      <div className="flex flex-col">
+                        <span className="font-bold text-white text-sm">{label}</span>
+                        <span className="text-[10px] text-white/40">{desc}</span>
+                      </div>
                     </div>
-                    <span className="font-semibold text-foreground text-sm">{range}</span>
+                    <span className="font-black text-white text-sm">{range}</span>
                   </div>
                 ))}
               </div>
-              <div className="mt-4 p-3 bg-muted/50 rounded-lg">
-                <p className="text-sm text-muted-foreground"><Calendar className="h-4 w-4 inline mr-1 text-primary" /> Ideal duration: <strong className="text-foreground">{detail.travelInfo.idealDuration}</strong></p>
+              <div className="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-2xl flex items-center gap-3">
+                <Clock className="h-6 w-6 text-primary" />
+                <p className="text-sm text-white/80">Ideal trip duration: <strong className="text-white text-lg ml-1 font-display tracking-tight">{detail.travelInfo.idealDuration}</strong></p>
               </div>
-            </div>
+            </GlowCard>
 
-            <div className="bg-card border border-border rounded-xl p-6 lg:col-span-2">
-              <h2 className="font-display text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-                <Car className="h-5 w-5 text-primary" /> Cab Services
+            <GlowCard className="bg-white/4 border-white/10 rounded-2xl p-6 lg:col-span-2 shadow-2xl">
+              <h2 className="font-display text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <Car className="h-5 w-5 text-primary" /> Trusted Cab Services
               </h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {detail.cabServices.map((cab, i) => (
-                  <div key={i} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                    <div>
-                      <p className="font-semibold text-foreground text-sm">{cab.name}</p>
-                      <p className="text-xs text-muted-foreground">{cab.contact}</p>
+                  <div key={i} className="flex items-center justify-between p-4 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/8 transition-all">
+                    <div className="flex flex-col gap-1">
+                      <p className="font-bold text-white text-sm">{cab.name}</p>
+                      <a href={`tel:${cab.contact}`} className="text-xs text-primary font-bold hover:underline">{cab.contact}</a>
                     </div>
-                    <span className="text-sm font-semibold text-primary">{cab.pricePerKm}</span>
+                    <div className="text-right">
+                       <span className="text-xs font-black text-white">{cab.pricePerKm}</span>
+                       <p className="text-[9px] text-white/30 uppercase tracking-widest">per km</p>
+                    </div>
                   </div>
                 ))}
               </div>
-            </div>
+            </GlowCard>
           </div>
         )}
 
