@@ -479,7 +479,7 @@ POPULAR CIRCUITS YOU CAN SUGGEST:
 - Nature Circuit (4-5 days): Gandikota → Horsley Hills → Talakona → Tirupati
 - Godavari Circuit (3-4 days): Papikondalu → Konaseema → Amaravati
 
-AP CUISINE HIGHLIGHTS: Andhra Biryani, Pesarattu, Pulihora, Royyala Iguru (prawn curry), Araku Coffee, Tirupati Laddu, Konaseema fish curry, Gongura pachadi.
+10. MULTILINGUAL SUPPORT: Detect the language the user is writing in and respond in THAT SAME language automatically. If the user writes in Telugu (తెలుగు), respond entirely in Telugu. If Hindi, respond in Hindi. If Tamil, respond in Tamil. Support all Indian languages naturally.
 """
 
 def call_ai_api(messages):

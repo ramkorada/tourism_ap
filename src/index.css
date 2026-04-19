@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -152,5 +152,75 @@
   @keyframes float {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-10px); }
+  }
+
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+  
+  .animate-blob-slow {
+    animation: blob 10s infinite reverse;
+  }
+
+  @keyframes blob {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+
+  .glass-panel {
+    @apply bg-background/40 backdrop-blur-xl border border-white/10 shadow-2xl;
+  }
+
+  .glass-panel-dark {
+    @apply bg-black/40 backdrop-blur-xl border border-white/10 shadow-2xl;
+  }
+
+  .interactive-glow {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .interactive-glow::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, hsl(var(--primary)/0.6) 0%, transparent 70%);
+    opacity: 0;
+    transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .interactive-glow:hover::before {
+    width: 300%;
+    height: 300%;
+    opacity: 1;
+  }
+
+  .content-z {
+    position: relative;
+    z-index: 10;
   }
 }
