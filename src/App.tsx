@@ -15,6 +15,7 @@ import TripPlanner from "./pages/TripPlanner";
 import NotFound from "./pages/NotFound";
 import Chatbot from "./components/Chatbot";
 import EmergencySOS from "./components/EmergencySOS";
+import NearbyPlacesPopup from "./components/NearbyPlacesPopup";
 import AdminDashboard from "./pages/AdminDashboard";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
             </Routes>
             <Chatbot />
             <EmergencySOS />
+            <NearbyPlacesPopup />
           </BrowserRouter>
         </TooltipProvider>
       </ThemeProvider>

@@ -12,6 +12,7 @@ import ReviewSection from "@/components/ReviewSection";
 import WeatherWidget from "@/components/WeatherWidget";
 import { GlowCard } from "@/components/GlowCard";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
+import Navbar from "@/components/Navbar";
 
 const typeIcons: Record<string, any> = {
   hotel: Hotel,
@@ -256,7 +257,9 @@ const DestinationDetail = () => {
               </GlowCard>
             </div>
           </div>
-               {activeTab === "guide" && (
+        )}
+
+        {activeTab === "guide" && (
           <div className="grid lg:grid-cols-2 gap-6 relative z-10">
             {/* Must Visit */}
             <GlowCard className="bg-white/4 border-white/10 rounded-2xl p-6 shadow-2xl">
@@ -362,8 +365,6 @@ const DestinationDetail = () => {
           </div>
         )}
 
-        )}
-
         {activeTab === "nearby" && (
           <div className="space-y-12 relative z-10">
             {nearbyGroups.map(([type, places]) => {
@@ -401,7 +402,9 @@ const DestinationDetail = () => {
                     ))}
                   </div>
                 </div>
-            </div>
+              );
+            })}
+          </div>
         )}
 
         {activeTab === "travel" && (

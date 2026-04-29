@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { MapPin, Menu, X, User, LogOut, Sun, Moon } from "lucide-react";
+import { MapPin, Menu, X, User, LogOut, Sun, Moon, Compass } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useTheme } from "@/hooks/useTheme";
@@ -39,6 +39,13 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
+          <button
+            onClick={() => window.dispatchEvent(new Event("reopen-nearby"))}
+            className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+            title="Nearby places"
+          >
+            <Compass className="h-4 w-4" /> Near Me
+          </button>
           <button
             onClick={toggleTheme}
             className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
@@ -90,6 +97,12 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
+          <button
+            onClick={() => { window.dispatchEvent(new Event("reopen-nearby")); setIsOpen(false); }}
+            className="block py-3 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+          >
+            📍 Near Me
+          </button>
           {user ? (
             <button onClick={() => { signOut(); setIsOpen(false); }} className="block py-3 text-sm font-medium text-destructive">
               Sign Out
